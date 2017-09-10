@@ -3,6 +3,8 @@ import Calendar from "./Calendar";
 import Monthslider from "./Monthslider";
 import CONSTANT from "../common/constants";
 import HTTP from "../common/http";
+import Dayplan from "./Dayplan";
+
 
 class Availability extends Component {
 
@@ -47,23 +49,20 @@ class Availability extends Component {
     render() {
         console.log("AVAILABILITY RENDER");
         return (
-            <div>
-                <Monthslider month={this.state.monthId} changeMonth={this.changeMonth}/>
-                <WeekBar />
-                <Calendar days={this.state.days}/>
+            <div className="row">
+                <div className="col-sm-6">
+                    <Monthslider month={this.state.monthId} changeMonth={this.changeMonth}/>
+                    <div className="table-bordered">
+                        <Calendar days={this.state.days}/>
+                    </div>
+                </div>
+                <div className="col-sm-6">
+                    <Dayplan/>
+                </div>
             </div>
         );
     }
 }
 
-const WeekBar = () => {
-    return (
-        <div>
-            <ul>
-                {CONSTANT.DAY.map((day, i) => <li key={i}>{day}</li>)}
-            </ul>
-        </div>
-    );
-}
 
 export default Availability;
