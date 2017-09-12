@@ -12,6 +12,11 @@
   cursor: pointer;
 }
 
+.active{
+  background-color: rgba(242, 16, 63, 0.66);
+  cursor: hand;
+}
+
 .free{
   background-color: aliceblue;
 }

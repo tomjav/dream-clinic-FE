@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Calendar from "./Calendar";
 import Monthslider from "./Monthslider";
-import CONSTANT from "../common/constants";
 import HTTP from "../common/http";
 import Dayplan from "./Dayplan";
 
@@ -42,8 +41,15 @@ class Availability extends Component {
     };
 
     getDays() {
-        HTTP.get(`${CONSTANT.APP_URL}/doctor/1/availability/workingdays`, {params: {month: this.state.monthId}},
+        HTTP.get(`/doctor/1/availability/workingdays`, {params: {month: this.state.monthId}},
             resp => this.changeDays(resp));
+    }
+
+    clickedDay = (el) => {
+        console.log(el);
+        this.setState(prevState => ({
+            clickedDay: el
+        }));
     }
 
     render() {
@@ -53,11 +59,11 @@ class Availability extends Component {
                 <div className="col-sm-6">
                     <Monthslider month={this.state.monthId} changeMonth={this.changeMonth}/>
                     <div className="table-bordered">
-                        <Calendar days={this.state.days}/>
+                        <Calendar selectDay={this.clickedDay} days={this.state.days}/>
                     </div>
                 </div>
                 <div className="col-sm-6">
-                    <Dayplan/>
+                    <Dayplan day={this.state.clickedDay} year={this.state.year} month={this.state.monthId}/>
                 </div>
             </div>
         );
