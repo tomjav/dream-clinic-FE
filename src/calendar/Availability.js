@@ -14,7 +14,7 @@ class Availability extends Component {
             monthId: new Date().getMonth() + 1,
             year: new Date().getFullYear()
         };
-        this.getDays();
+        this.getDays(this.state.monthId);
     }
 
     changeMonth = way => {
@@ -30,8 +30,9 @@ class Availability extends Component {
                 monthId: this.state.monthId + way
             };
         }
+        newState.clickedDay = null;
         this.setState(newState);
-        this.getDays();
+        this.getDays(newState.monthId);
     };
 
     changeDays = newDays => {
@@ -40,8 +41,8 @@ class Availability extends Component {
         }));
     };
 
-    getDays() {
-        HTTP.get(`/doctor/1/availability/workingdays`, {params: {month: this.state.monthId}},
+    getDays(monthId) {
+        HTTP.get(`/doctor/1/availability/workingdays`, {params: {month: monthId}},
             resp => this.changeDays(resp));
     }
 
@@ -53,17 +54,16 @@ class Availability extends Component {
     }
 
     render() {
-        console.log("AVAILABILITY RENDER");
         return (
             <div className="row">
                 <div className="col-sm-6">
                     <Monthslider month={this.state.monthId} changeMonth={this.changeMonth}/>
-                    <div className="table-bordered">
-                        <Calendar selectDay={this.clickedDay} days={this.state.days}/>
-                    </div>
+                    <Calendar selectDayFunction={this.clickedDay} days={this.state.days} month={this.state.monthId}/>
                 </div>
                 <div className="col-sm-6">
+                    {this.state.clickedDay &&
                     <Dayplan day={this.state.clickedDay} year={this.state.year} month={this.state.monthId}/>
+                    }
                 </div>
             </div>
         );

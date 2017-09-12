@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
 import './style/Day.css';
 import CONSTANT from "../common/constants";
 
@@ -13,12 +13,15 @@ class Calendar extends Component {
         }
 
         return (
-            <table className="table">
-                <WeekBar/>
-                <tbody>
-                {arrays.map((day, i) => <DayRow days={day} key={i} selectDay={this.props.selectDay}/>)}
-                </tbody>
-            </table>
+            <div className="table-bordered">
+                <table className="table">
+                    <WeekBar/>
+                    <tbody>
+                    {arrays.map((day, i) => <DayRow days={day} key={i} selectDayFunction={this.props.selectDayFunction}
+                                                    month={this.props.month}/>)}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }
@@ -26,16 +29,23 @@ class Calendar extends Component {
 const DayRow = (props) => {
     return (
         <tr>
-            {props.days.map((day, i) => <Day {...day} key={i} selectDay={props.selectDay}/>)}
+            {props.days.map((day, i) => <Day {...day} key={i} selectDayFunction={props.selectDayFunction}
+                                             month={props.month}/>)}
         </tr>
     );
 }
 
-class Day extends Component {
+class Day extends PureComponent {
 
     state = {
         clicked: false
     };
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.month !== this.props.month) {
+            this.setState({clicked: false});
+        }
+    }
 
     passStyle() {
         let style = 'day';
@@ -52,13 +62,13 @@ class Day extends Component {
     }
 
     handleClick = (event) => {
-        if(!this.props.currentMonth){
+        if (!this.props.currentMonth) {
             return;
         }
         this.setState(prevState => ({
             clicked: true
         }));
-        this.props.selectDay(this.props);
+        this.props.selectDayFunction(this.props);
     }
 
     render() {

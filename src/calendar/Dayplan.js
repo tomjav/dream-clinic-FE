@@ -11,9 +11,13 @@ class Dayplan extends Component {
         };
     }
 
+    componentDidMount() {
+        let date = new Date(this.props.year, this.props.month, this.props.day.dayNumber);
+        HTTP.get(`/doctor/1/availability/hours`, {params: {date: date.toISOString()}},
+            e => this.setState({hours: e}))
+    }
+
     componentWillReceiveProps(nextProps) {
-
-
         if (nextProps.day) {
             let date = new Date(nextProps.year, nextProps.month, nextProps.day.dayNumber);
             HTTP.get(`/doctor/1/availability/hours`, {params: {date: date.toISOString()}},
@@ -22,18 +26,15 @@ class Dayplan extends Component {
     }
 
     render() {
-
-        const pickedDay = Boolean(this.props.day);
         return (
             <div>
-                {pickedDay &&
                 <table className="table table-striped">
                     <thead>
                     <DayBar day={this.props.day.dayOfWeek} date={this.props.day.dayNumber}/>
                     </thead>
                     <HoursTable hours={this.state.hours}/>
                 </table>
-                }
+
             </div>
         );
     };
@@ -54,9 +55,9 @@ class Hours extends Component {
         return (
             <tr>
                 <td>
-                <span>{this.props.from}</span>
-                <span>{this.props.to}</span>
-                <span>{this.props.status}</span>
+                    <span>{this.props.from}</span>
+                    <span>{this.props.to}</span>
+                    <span>{this.props.status}</span>
                 </td>
             </tr>
         )
