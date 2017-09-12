@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Calendar from "./Calendar";
 import Monthslider from "./Monthslider";
-import CONSTANT from "../common/constants";
 import HTTP from "../common/http";
+import Dayplan from "./Dayplan";
+
 
 class Availability extends Component {
 
@@ -13,7 +14,7 @@ class Availability extends Component {
             monthId: new Date().getMonth() + 1,
             year: new Date().getFullYear()
         };
-        this.getDays();
+        this.getDays(this.state.monthId);
     }
 
     changeMonth = way => {
@@ -29,8 +30,9 @@ class Availability extends Component {
                 monthId: this.state.monthId + way
             };
         }
+        newState.clickedDay = null;
         this.setState(newState);
-        this.getDays();
+        this.getDays(newState.monthId);
     };
 
     changeDays = newDays => {
@@ -39,31 +41,34 @@ class Availability extends Component {
         }));
     };
 
-    getDays() {
-        HTTP.get(`${CONSTANT.APP_URL}/doctor/1/availability/workingdays`, {params: {month: this.state.monthId}},
+    getDays(monthId) {
+        HTTP.get(`/doctor/1/availability/workingdays`, {params: {month: monthId}},
             resp => this.changeDays(resp));
     }
 
+    clickedDay = (el) => {
+        console.log(el);
+        this.setState(prevState => ({
+            clickedDay: el
+        }));
+    }
+
     render() {
-        console.log("AVAILABILITY RENDER");
         return (
-            <div>
-                <Monthslider month={this.state.monthId} changeMonth={this.changeMonth}/>
-                <WeekBar />
-                <Calendar days={this.state.days}/>
+            <div className="row">
+                <div className="col-sm-6">
+                    <Monthslider month={this.state.monthId} changeMonth={this.changeMonth}/>
+                    <Calendar selectDayFunction={this.clickedDay} days={this.state.days} month={this.state.monthId}/>
+                </div>
+                <div className="col-sm-6">
+                    {this.state.clickedDay &&
+                    <Dayplan day={this.state.clickedDay} year={this.state.year} month={this.state.monthId}/>
+                    }
+                </div>
             </div>
         );
     }
 }
 
-const WeekBar = () => {
-    return (
-        <div>
-            <ul>
-                {CONSTANT.DAY.map((day, i) => <li key={i}>{day}</li>)}
-            </ul>
-        </div>
-    );
-}
 
 export default Availability;
