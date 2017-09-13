@@ -12,16 +12,18 @@ class Dayplan extends Component {
     }
 
     componentDidMount() {
-        let date = new Date(this.props.year, this.props.month, this.props.day.dayNumber);
-        HTTP.get(`/doctor/1/availability/hours`, {params: {date: date.toISOString()}},
+        this.getWorkingHours(this.props);
+    }
+
+    getWorkingHours(props){
+        let date = `${props.year}-${props.month}-${props.day.dayNumber}`;
+        HTTP.get(`/doctor/1/availability/hours`, {params: {date: date}},
             e => this.setState({hours: e}))
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.day) {
-            let date = new Date(nextProps.year, nextProps.month, nextProps.day.dayNumber);
-            HTTP.get(`/doctor/1/availability/hours`, {params: {date: date.toISOString()}},
-                e => this.setState({hours: e}))
+            this.getWorkingHours(nextProps);
         }
     }
 
@@ -51,13 +53,24 @@ class HoursTable extends Component {
 }
 
 class Hours extends Component {
+
+    getHourStatusLabel = () => {
+        switch (this.props.status){
+            case 'HOUR_OFF': return (<span className="label label-success">wolne</span>);
+            case 'FREE': return (<span className="label label-danger">wolny czas pracy</span>);
+            case 'APPOINTMENT': return (<span className="label label-success">Success</span>);
+            default: return null;
+        }
+    }
+
+
     render() {
         return (
             <tr>
                 <td>
                     <span>{this.props.from}</span>
                     <span>{this.props.to}</span>
-                    <span>{this.props.status}</span>
+                    <span>{this.getHourStatusLabel()}</span>
                 </td>
             </tr>
         )
