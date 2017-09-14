@@ -18,7 +18,7 @@ class MenuComponent extends Component {
                             <Link to="/availability">Kalendarz</Link>
                         </li>
                         <li>
-                            <Link to="/appointment">Umów wizytę</Link>
+                            <Link to="/specialities">Umów wizytę</Link>
                         </li>
                         <li>
                             <Link to="/appointment">Wizyty</Link>
