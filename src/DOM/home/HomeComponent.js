@@ -1,5 +1,5 @@
 import React from 'react';
-import CaruselComponent from "../common/carusel/CaruselComponent";
+import CaruselComponent from "../../common/carusel/CaruselComponent";
 
 const HomeComponent = (props) => {
 

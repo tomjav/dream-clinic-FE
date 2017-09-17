@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import HTTP from "../common/http";
+import HTTP from "../../common/http";
 import './Speciality.css';
 import {Col, Thumbnail} from "react-bootstrap";
 
@@ -19,7 +19,7 @@ class SpecialityContainer extends Component {
 
     redirectToCalendar = (id) => {
         console.log(this);
-        this.props.history.push("/availability");
+        this.props.history.push("/doctors");
     }
 
     render() {
