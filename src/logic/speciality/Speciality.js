@@ -17,22 +17,29 @@ class SpecialityContainer extends Component {
         this.getSpecialities()
     }
 
-    redirectToCalendar = (id) => {
+    redirectToDoctors = (specName, specId) => {
         console.log(this);
-        this.props.history.push("/doctors");
+        this.props.history.push(
+            {
+                pathname: `/doctors/${specName}`,
+                state: {specialityId: specId}
+            }
+        );
+
+
     }
 
     render() {
         return (
             <div>
-                {this.state.specialities.map(spec => <Speciality {...spec} key={spec.id} redirectToCalendar={this.redirectToCalendar}/>)}
+                {this.state.specialities.map(spec => <Speciality {...spec} key={spec.id}
+                                                                 redirectToDoctors={this.redirectToDoctors}/>)}
             </div>
         )
     }
 
     getSpecialities() {
-        HTTP.get("/specialities", {},
-            data => this.setState({specialities: data})
+        HTTP.get("/specialities", data => this.setState({specialities: data})
         );
     }
 }
@@ -40,7 +47,7 @@ class SpecialityContainer extends Component {
 class Speciality extends Component {
 
     handleClick = () => {
-        this.props.redirectToCalendar(this.props.id);
+        this.props.redirectToDoctors(this.props.name.toLowerCase(), this.props.id);
     };
 
     render() {
@@ -50,7 +57,8 @@ class Speciality extends Component {
                     <h3>{this.props.name}</h3>
                     <p>Description</p>
                     <p>
-                        <button onClick={this.handleClick} type="button" className="btn btn-primary">Wybierz termin</button>
+                        <button onClick={this.handleClick} type="button" className="btn btn-primary">Wybierz termin
+                        </button>
                         <button onClick={this.handleClick} type="button" className="btn">Znajdz lekarza</button>
                     </p>
                 </Thumbnail>

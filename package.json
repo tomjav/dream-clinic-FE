@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "boron": "^0.2.3",
     "react": "^15.6.1",
     "react-axios": "^1.0.3",
     "react-bootstrap": "^0.31.2",

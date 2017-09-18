@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Calendar from "./Calendar";
 import Monthslider from "./Monthslider";
 import HTTP from "../common/http";
-import Dayplan from "./Dayplan";
+import Dayplan from "./DayPlan/Dayplan";
 import ArrayUtil from "../common/ArrayUtil";
 
 
@@ -18,7 +18,7 @@ class Availability extends Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getDays(this.state.monthId);
     }
 
@@ -47,18 +47,17 @@ class Availability extends Component {
     };
 
     getDays(monthId) {
-        HTTP.get(`/doctor/1/availability/workingdays`, {params: {month: monthId}},
-            resp => this.changeDays(resp));
+        HTTP.get(`/doctor/1/availability/workingdays`,
+            resp => this.changeDays(resp), {month: monthId});
     }
 
     clickedDay = (el) => {
         let index = this.state.clickedDays.map(e => e.dayNumber).indexOf(el.dayNumber);
-        console.log(index);
-        if(index > -1){
+        if (index > -1) {
             this.setState(prevState => ({
                 clickedDays: prevState.clickedDays.length == 1 ? [] : ArrayUtil.removeElement(this.state.clickedDays, e => e.dayNumber, el)
             }));
-        }else {
+        } else {
             this.setState(prevState => ({
                 clickedDays: prevState.clickedDays.concat(el)
             }));
@@ -75,7 +74,8 @@ class Availability extends Component {
                 </div>
                 <div className="col-sm-6">
                     {this.state.clickedDays && this.state.clickedDays.length > 0 &&
-                    <Dayplan day={this.state.clickedDays[this.state.clickedDays.length-1]} year={this.state.year} month={this.state.monthId}/>
+                    <Dayplan day={this.state.clickedDays[this.state.clickedDays.length - 1]} year={this.state.year}
+                             month={this.state.monthId}/>
                     }
                 </div>
             </div>
