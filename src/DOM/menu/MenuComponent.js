@@ -1,7 +1,20 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import LoginComponent from "../login/LoginComponent";
+import LoggedAsSomeone from "../login/LoggedAsSomeone";
 
 class MenuComponent extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {logged: false}
+    }
+
+    handleLoggenIn = (status) => {
+        console.log("Zalogowano");
+        this.setState({logged: status});
+    };
+
 
     render() {
         return (
@@ -26,12 +39,13 @@ class MenuComponent extends Component {
                         <li>
                             <Link to="/appointment">Moja dokumentacja</Link>
                         </li>
-
                     </ul>
-                    <ul className="nav navbar-nav navbar-right">
-                        <li><a href="#"><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>
+                    {localStorage.getItem('token') === null &&
+                        <LoginComponent handleLoggenIn={this.handleLoggenIn}/>
+                    }
+                    {localStorage.getItem('token') !== null &&
+                    <LoggedAsSomeone handleLoggenIn={this.handleLoggenIn}/>
+                    }
                 </div>
             </nav>
         );

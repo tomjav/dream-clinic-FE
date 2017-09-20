@@ -19,8 +19,8 @@ class Dayplan extends Component {
         this.getWorkingHours(this.props);
     };
 
-    getWorkingHours(props) {
-        let date = `${props.year}-${props.month}-${props.day.dayNumber}`;
+    getWorkingHours = () => {
+        let date = `${this.props.year}-${this.props.month}-${this.props.day.dayNumber}`;
         HTTP.get(`/doctor/1/availability/hours`, e => this.setState({hours: e}), {date: date});
     };
 
@@ -29,6 +29,11 @@ class Dayplan extends Component {
             this.getWorkingHours(nextProps);
         }
     };
+
+    onActionClick = (dto) => {
+        dto.date = `${this.props.year}-${this.props.month}-${this.props.day.dayNumber}`;
+        HTTP.post(`/doctor/${CONSTANT.ID}/availability/hours`, this.getWorkingHours, dto);
+    }
 
     render() {
         return (
@@ -42,7 +47,7 @@ class Dayplan extends Component {
                         <th>Opcje</th>
                     </tr>
                     </thead>
-                    <HoursTable hours={this.state.hours}/>
+                    <HoursTable hours={this.state.hours} onActionClick={this.onActionClick}/>
                 </table>
 
             </div>

@@ -25,7 +25,7 @@ class HoursRow extends Component {
                     <span>{this.props.to}</span>
                 </td>
                 <td>{this.getHourStatusLabel()}</td>
-                <OptionDoctor status={this.props.status}/>
+                <OptionDoctor status={this.props.status} onActionClick={this.props.onActionClick} from={this.props.from} to={this.props.to}/>
             </tr>
         )
     }

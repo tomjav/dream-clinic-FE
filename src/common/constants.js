@@ -22,7 +22,8 @@ const CONSTANT = {
         'Piątek',
         'Sobota',
         'Niedziela'
-    ]
+    ],
+    ID: 1
 };
 
 

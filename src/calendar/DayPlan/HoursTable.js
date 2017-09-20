@@ -5,7 +5,7 @@ class HoursTable extends Component {
     render() {
         return (
             <tbody>
-            {this.props.hours.map((hour, i) => <HoursRow {...hour} key={i}/>)}
+             {this.props.hours.map((hour, i) => <HoursRow {...hour} onActionClick={this.props.onActionClick} key={i}/>)}
             </tbody>
         )
     }
