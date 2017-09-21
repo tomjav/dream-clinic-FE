@@ -30,13 +30,13 @@ class ProposeAppointmentWrapper extends Component {
         );
     };
 
-    callbackClose = () => {
-        this.setState({showModal: false});
-    };
-
     onAppointmentApproval = () => {
 
         this.setState({showModal: true});
+    };
+
+    modalClose = () => {
+        this.setState({showModal: false});
     };
 
     onProposeClickHandle = (propose) => {
@@ -55,7 +55,7 @@ class ProposeAppointmentWrapper extends Component {
     }
 
 
-    onSubmit = (reasons) => {
+    createAppointment = (reasons) => {
 
         // let request = reasons;
         //
@@ -67,11 +67,11 @@ class ProposeAppointmentWrapper extends Component {
 
 
     resolveContent = () => {
-        return <AppointmentProposeFrom onSubmit={this.onSubmit}/>;
+        return <AppointmentProposeFrom />;
 
     };
 
-    modalFooter = <Button onClick={this.onSubmit}>Umow wizyte</Button>
+    modalFooter = <Button onClick={this.createAppointment}>Umow wizyte</Button>
 
     render() {
         console.log(this.state.clickedDays);
@@ -87,7 +87,7 @@ class ProposeAppointmentWrapper extends Component {
                                 headerModal={modalHeader}
                                 bodyModal={this.resolveContent()}
                                 footerModal={this.modalFooter}
-                                callbackClose={this.callbackClose}
+                                callbackClose={this.modalClose}
                 />
             </Row>
         );

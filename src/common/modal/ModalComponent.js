@@ -8,8 +8,9 @@ class ModalComponent extends Component {
     }
 
     close = () => {
+        console.log(this.props);
         this.props.callbackClose();
-    }
+    };
 
     render() {
 

@@ -80,7 +80,9 @@ class LoginComponent extends Component {
                 <ModalComponent showModal={this.state.showModal}
                                 headerModal={modalHeader}
                                 bodyModal={this.resolveContent()}
-                                footerModal={this.footerModal}/>
+                                footerModal={this.footerModal}
+                                callbackClose={() => this.setState({showModal:false})}
+                />
             </ul>
         )
     }
