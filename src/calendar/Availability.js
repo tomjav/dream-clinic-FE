@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import Calendar from "./Calendar";
 import Monthslider from "./Monthslider";
 import HTTP from "../common/http";
-import Dayplan from "./Dayplan";
+import Dayplan from "./DayPlan/Dayplan";
+import ArrayUtil from "../common/ArrayUtil";
 
 
 class Availability extends Component {
@@ -12,8 +13,12 @@ class Availability extends Component {
         this.state = {
             days: [],
             monthId: new Date().getMonth() + 1,
-            year: new Date().getFullYear()
+            year: new Date().getFullYear(),
+            clickedDays: []
         };
+    }
+
+    componentDidMount() {
         this.getDays(this.state.monthId);
     }
 
@@ -30,7 +35,7 @@ class Availability extends Component {
                 monthId: this.state.monthId + way
             };
         }
-        newState.clickedDay = null;
+        newState.clickedDays = [];
         this.setState(newState);
         this.getDays(newState.monthId);
     };
@@ -42,18 +47,25 @@ class Availability extends Component {
     };
 
     getDays(monthId) {
-        HTTP.get(`/doctor/1/availability/workingdays`, {params: {month: monthId}},
-            resp => this.changeDays(resp));
+        HTTP.get(`/doctor/1/availability/workingdays`,
+            resp => this.changeDays(resp), {month: monthId});
     }
 
     clickedDay = (el) => {
-        console.log(el);
-        this.setState(prevState => ({
-            clickedDay: el
-        }));
-    }
+        let index = this.state.clickedDays.map(e => e.dayNumber).indexOf(el.dayNumber);
+        if (index > -1) {
+            this.setState(prevState => ({
+                clickedDays: prevState.clickedDays.length == 1 ? [] : ArrayUtil.removeElement(this.state.clickedDays, e => e.dayNumber, el)
+            }));
+        } else {
+            this.setState(prevState => ({
+                clickedDays: prevState.clickedDays.concat(el)
+            }));
+        }
+    };
 
     render() {
+        console.log(this.state.clickedDays);
         return (
             <div className="row">
                 <div className="col-sm-6">
@@ -61,8 +73,9 @@ class Availability extends Component {
                     <Calendar selectDayFunction={this.clickedDay} days={this.state.days} month={this.state.monthId}/>
                 </div>
                 <div className="col-sm-6">
-                    {this.state.clickedDay &&
-                    <Dayplan day={this.state.clickedDay} year={this.state.year} month={this.state.monthId}/>
+                    {this.state.clickedDays && this.state.clickedDays.length > 0 &&
+                    <Dayplan day={this.state.clickedDays[this.state.clickedDays.length - 1]} year={this.state.year}
+                             month={this.state.monthId}/>
                     }
                 </div>
             </div>

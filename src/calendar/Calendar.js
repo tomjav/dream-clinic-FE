@@ -61,12 +61,12 @@ class Day extends PureComponent {
         return style;
     }
 
-    handleClick = (event) => {
+    handleClick = () => {
         if (!this.props.currentMonth) {
             return;
         }
         this.setState(prevState => ({
-            clicked: true
+            clicked: !prevState.clicked
         }));
         this.props.selectDayFunction(this.props);
     }

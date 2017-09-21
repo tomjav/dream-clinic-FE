@@ -22,7 +22,9 @@ const CONSTANT = {
         'Piątek',
         'Sobota',
         'Niedziela'
-    ]
+    ],
+    ID: 1,
+    ADDRESS: 'Bohaterów Modlina 22 Nowy Dwór Mazowiecki'
 };
 
 
