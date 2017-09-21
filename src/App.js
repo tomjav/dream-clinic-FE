@@ -12,6 +12,7 @@ import ProposeAppointmentWrapper from "./proposeAppoitment/proposeAppoitmentWrap
 import * as moment from "moment";
 import CONSTANT from "./common/constants";
 import ApprovalComponent from "./DOM/approval/ApprovalComponent";
+import PatientAppointmentWrapper from "./appointments/patientAppoitmentWrapper";
 
 class App extends Component {
 
@@ -43,6 +44,7 @@ class App extends Component {
                             <Route path="/doctors" component={DoctorWrapper}/>
                             <Route path="/propose/appointment" component={ProposeAppointmentWrapper}/>
                             <Route path="/approval" component={ApprovalComponent}/>
+                            <Route path="/appointment" component={PatientAppointmentWrapper}/>
                         </div>
                     </div>
                 </Router>
