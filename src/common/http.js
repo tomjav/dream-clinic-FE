@@ -8,7 +8,7 @@ const HTTP = {
             config.headers = {authorization: localStorage.getItem('token')}
         }
         const requestURL = CONSTANT.APP_URL + url;
-        console.log("REQUEST WITH PARAMS:" + requestURL)
+        console.log("REQUEST WITH PARAMS:" + requestURL);
         console.log(params);
         if (typeof params !== "object") {
             axios.get(requestURL, config)

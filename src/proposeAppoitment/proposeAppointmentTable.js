@@ -6,7 +6,6 @@ class ProposeAppointmentTable extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
     }
 
     componentDidMount() {
@@ -14,7 +13,7 @@ class ProposeAppointmentTable extends Component {
     }
 
     render() {
-        console.log(this.state.clickedDays);
+            console.log(this.props);
         return (
             <table className="table table-hover">
                 <thead>
@@ -27,7 +26,7 @@ class ProposeAppointmentTable extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                {this.props.data.map((doc, i) => <ProposeAppointmentRow {...doc} key={i}/>)}
+                  {this.props.data.map((doc, i) => <ProposeAppointmentRow {...doc} key={i}/>)}
                 </tbody>
             </table>
         );
@@ -36,8 +35,6 @@ class ProposeAppointmentTable extends Component {
 
 
 class ProposeAppointmentRow extends Component {
-
-
     render() {
         return (<tr>
             <th>{this.props.doctorDto.name}</th>

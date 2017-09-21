@@ -19,7 +19,7 @@ class ProposeAppointmentWrapper extends Component {
         console.log(this.state.clickedDays);
         return (
             <Row>
-                <Col md={6}><LeftSide/></Col>
+                <Col md={6}><LeftSide specialityId={this.props.location.state.specialityId}/></Col>
                 <Col md={6}><RightSide/></Col>
             </Row>
         );

@@ -20,6 +20,15 @@ class App extends Component {
             months : CONSTANT.MONTH.splice(1)
         });
 
+        Date.prototype.addMonths = function (value) {
+            var n = this.getDate();
+            this.setDate(1);
+            this.setMonth(this.getMonth() + value);
+            this.setDate(Math.min(n, this.getDaysInMonth()));
+            return this;
+        };
+
+
         return (
             <div>
                 <TopBarComponent/>

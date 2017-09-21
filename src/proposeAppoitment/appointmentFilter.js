@@ -8,61 +8,79 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 class AppoitmentFilter extends Component {
 
-    data = [
-        {
-            "doctorDto": {
-                "id": 2,
-                "name": "Tomasz",
-                "surname": "Grzybowski",
-                "specialityId": 1,
-                "speciality": "Kardiologia",
-                "img": null
-            },
-            "date": 1503352800000,
-            "form": 8,
-            "to": 11
-        }
-    ];
-
-
-    constructor(props) {
+     constructor(props) {
         super(props);
         this.state = {
-            startDate: new moment(),
-            endDate: undefined
+            dateFrom: new moment(),
+            dateTo: new moment(),
+            from: '',
+            to: ''
         };
     }
 
     handleChangeStart = (date) => {
-        this.setState({startDate: date});
+        this.setState({dateFrom: date});
     };
 
     handleChangeEnd = (date) => {
-        this.setState({endDate: date});
+        this.setState({dateTo: date});
     };
 
+    handleChangeFrom = (event) => {
+        console.log(event.target.value);
+        this.setState({from: event.target.value});
+    };
+
+    handleChangeTo = (event) => {
+        this.setState({to: event.target.value});
+    };
+
+
+    handleClick = () => {
+        let dto = {
+          dateFrom : this.state.dateFrom,
+          dateTo : this.state.dateTo,
+          from : this.state.from,
+          to : this.state.to,
+        };
+        if(dto.dateFrom) dto.dateFrom = dto.dateFrom.toDate();
+        if(dto.dateTo) dto.dateTo = dto.dateTo.toDate();
+
+        if(!dto.dateTo){
+            dto.dateTo = new Date(dto.dateFrom.getYear(),dto.dateFrom.getMonth()+1, 1);
+        }
+
+        if(!dto.from){
+            dto.from = 8;
+        }
+
+        if(!dto.to){
+            dto.to = 19;
+        }
+
+        this.props.handleSearchProposes(dto);
+    }
 
     componentDidMount() {
 
     }
 
     render() {
-        console.log(this.state.clickedDays);
         return (
             <Panel header='Filtr wyszukiwania' bsStyle="info">
                 <Row>
                     <Col md={6}>
-                        <DatePicker selected={this.state.startDate} onChange={this.handleChangeStart}
-                                    placeholderText="Szukaj wizydy od dnia"/>
-                        <DatePicker selected={this.state.endDate} onChange={this.handleChangeEnd} isClearable={true}
-                                    placeholderText="Szukaj wizydy do dnia"/>
+                        <DatePicker selected={this.state.dateFrom} onChange={this.handleChangeStart}
+                                    placeholderText="Szukaj wizyty od dnia"/>
+                        <DatePicker selected={this.state.dateTo} onChange={this.handleChangeEnd}
+                                    placeholderText="Szukaj wizyty do dnia"/>
                     </Col>
                     <Col md={6}>
-                        <input type="text" placeholder="Od godziny"/>
-                        <input type="text" placeholder="Do godziny"/>
+                        <input value={this.state.from} onChange={this.handleChangeFrom} type="text" placeholder="Od godziny"/>
+                        <input value={this.state.to} onChange={this.handleChangeTo} type="text" placeholder="Do godziny"/>
                     </Col>
                 </Row>
-                <Button>Zastosuj</Button>
+                <button onClick={this.handleClick}>Zastosuj</button>
             </Panel>
         );
     }
