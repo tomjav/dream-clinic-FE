@@ -25,7 +25,15 @@ class AppointmentProposeFrom extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.createAppointment(this.state);
+
+        console.log("asasas")
+        let dto = {
+            reason: this.state.reason,
+            comment: this.state.comment,
+            symptom: this.state.symptom,
+        }
+
+        this.props.createAppointment(dto);
     };
 
     render() {
@@ -55,6 +63,8 @@ class AppointmentProposeFrom extends Component {
                         <FormControl type="text" value={this.state.symptom} onChange={this.handleChangeSymptom} placeholder="Dodatkowe uwagi.."/>
                     </Col>
                 </FormGroup>
+
+                <Button onClick={this.handleSubmit}>Umow wizyte</Button>
             </Form>
         );
     }

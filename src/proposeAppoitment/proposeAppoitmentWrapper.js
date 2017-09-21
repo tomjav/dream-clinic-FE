@@ -16,19 +16,7 @@ class ProposeAppointmentWrapper extends Component {
         };
     }
 
-    onAppointmentApprovalCallback = () => {
-        this.props.history.push(
-            {
-                pathname: `/approval`,
-                state: {
-                    header: 'Zarejestrowano wizyte!',
-                    content: 'Twoja wizyta zostaja pomyslnie zarejestrowana',
-                    buttonInfo: 'Przejdz do wizyt',
-                    callbackPath: '/appointments'
-                }
-            }
-        );
-    };
+
 
     onAppointmentApproval = () => {
 
@@ -57,21 +45,43 @@ class ProposeAppointmentWrapper extends Component {
 
     createAppointment = (reasons) => {
 
-        // let request = reasons;
-        //
-        // request.
+        let request = reasons;
 
+        request.patientId = Number(localStorage.getItem('id'));
+        request.doctorId = this.state.propose.doctorDto.id;
+        request.date = this.state.propose.date;
+        request.hourFrom = this.state.propose.from;
+        request.hourTo = this.state.propose.to;
+        request.hourTo = this.state.propose.to;
+        request.id = this.state.propose.availabilityId;
 
         console.log("submit!");
-    }
+        console.log(request);
 
-
-    resolveContent = () => {
-        return <AppointmentProposeFrom />;
+        HTTP.post('/appointment', this.onAppointmentApprovalCallback, request);
 
     };
 
-    modalFooter = <Button onClick={this.createAppointment}>Umow wizyte</Button>
+    onAppointmentApprovalCallback = () => {
+        this.props.history.push(
+            {
+                pathname: `/approval`,
+                state: {
+                    header: 'Zarejestrowano wizyte!',
+                    content: 'Twoja wizyta zostaja pomyslnie zarejestrowana',
+                    buttonInfo: 'Przejdz do wizyt',
+                    callbackPath: '/appointments'
+                }
+            }
+        );
+    };
+
+    resolveContent = () => {
+        return <AppointmentProposeFrom createAppointment={this.createAppointment}/>;
+
+    };
+
+    // modalFooter = <Button onClick={this.createAppointment}>Umow wizyte</Button>
 
     render() {
         console.log(this.state.clickedDays);
