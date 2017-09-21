@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {Panel} from "react-bootstrap";
+import DoctorPersonalInfo from "./doctorPersonalInfo";
+import AppointmentOption from "./appointmentOption";
 
 
 class RightSide extends Component {
@@ -18,7 +21,8 @@ class RightSide extends Component {
         console.log(this.state.clickedDays);
         return (
             <div>
-                RIGHT
+                <DoctorPersonalInfo doctorInfo={this.props.doctorInfo}/>
+                <AppointmentOption propose={this.props.propose} onAppointmentApproval={this.props.onAppointmentApproval}/>
             </div>
         );
     }

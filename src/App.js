@@ -11,6 +11,7 @@ import DoctorWrapper from "./logic/doctorlist/doctorwrapper";
 import ProposeAppointmentWrapper from "./proposeAppoitment/proposeAppoitmentWrapper";
 import * as moment from "moment";
 import CONSTANT from "./common/constants";
+import ApprovalComponent from "./DOM/approval/ApprovalComponent";
 
 class App extends Component {
 
@@ -41,6 +42,7 @@ class App extends Component {
                             <Route path="/specialities" component={SpecialityContainer}/>
                             <Route path="/doctors" component={DoctorWrapper}/>
                             <Route path="/propose/appointment" component={ProposeAppointmentWrapper}/>
+                            <Route path="/approval" component={ApprovalComponent}/>
                         </div>
                     </div>
                 </Router>

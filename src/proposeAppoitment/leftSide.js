@@ -33,7 +33,7 @@ class LeftSide extends Component {
         return (
             <Panel>
                 <AppoitmentFilter handleSearchProposes={this.handleSearchProposes}/>
-                <ProposeAppointmentTable data={this.state.data}/>
+                <ProposeAppointmentTable onProposeClickHandle={this.props.onProposeClickHandle} data={this.state.data}/>
             </Panel>
         );
     }

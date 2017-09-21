@@ -26,7 +26,7 @@ class ProposeAppointmentTable extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                  {this.props.data.map((doc, i) => <ProposeAppointmentRow {...doc} key={i}/>)}
+                  {this.props.data.map((doc, i) => <ProposeAppointmentRow {...doc} key={i} onProposeClickHandle={this.props.onProposeClickHandle}/>)}
                 </tbody>
             </table>
         );
@@ -35,8 +35,14 @@ class ProposeAppointmentTable extends Component {
 
 
 class ProposeAppointmentRow extends Component {
+
+    handleClick = () => {
+        this.props.onProposeClickHandle(this.props)
+    }
+
+
     render() {
-        return (<tr>
+        return (<tr onClick={this.handleClick}>
             <th>{this.props.doctorDto.name}</th>
             <th>{this.props.doctorDto.surname}</th>
             <th>{this.props.from}</th>
