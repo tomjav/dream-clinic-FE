@@ -7,9 +7,8 @@ class ModalComponent extends Component {
         super(props);
     }
 
-    close() {
-        //TODO
-        this.setState({showModal: false});
+    close = () => {
+        this.props.callbackClose();
     }
 
     render() {
@@ -31,15 +30,3 @@ class ModalComponent extends Component {
 }
 
 export default ModalComponent;
-
-
-// const popover = (
-//     <Popover id="modal-popover" title="popover">
-//         very popover. such engagement
-//     </Popover>
-// );
-// const tooltip = (
-//     <Tooltip id="modal-tooltip">
-//         wow.
-//     </Tooltip>
-// );

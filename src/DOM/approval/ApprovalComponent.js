@@ -4,8 +4,7 @@ import {Button, Jumbotron} from "react-bootstrap";
 class ApprovalComponent extends Component {
 
     handleClick = () => {
-        let path = this.props.callbackPath;
-
+        let path = this.props.location.state.callbackPath;
         this.props.history.push(
             {
                 pathname: path,
