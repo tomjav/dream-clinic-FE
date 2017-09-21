@@ -8,10 +8,18 @@ import FooterComponent from "./DOM/footer/FooterComponent";
 import SpecialityContainer from "./logic/speciality/Speciality";
 import TopBarComponent from "./DOM/topbar/TopBarComponent";
 import DoctorWrapper from "./logic/doctorlist/doctorwrapper";
+import ProposeAppointmentWrapper from "./proposeAppoitment/proposeAppoitmentWrapper";
+import * as moment from "moment";
+import CONSTANT from "./common/constants";
 
 class App extends Component {
 
     render() {
+
+        moment.updateLocale('en', {
+            months : CONSTANT.MONTH.splice(1)
+        });
+
         return (
             <div>
                 <TopBarComponent/>
@@ -23,6 +31,7 @@ class App extends Component {
                             <Route path="/availability" component={Availability}/>
                             <Route path="/specialities" component={SpecialityContainer}/>
                             <Route path="/doctors" component={DoctorWrapper}/>
+                            <Route path="/propose/appointment" component={ProposeAppointmentWrapper}/>
                         </div>
                     </div>
                 </Router>

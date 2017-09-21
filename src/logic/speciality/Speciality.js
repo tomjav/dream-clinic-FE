@@ -18,22 +18,30 @@ class SpecialityContainer extends Component {
     }
 
     redirectToDoctors = (specName, specId) => {
-        console.log(this);
         this.props.history.push(
             {
                 pathname: `/doctors/${specName}`,
                 state: {specialityId: specId}
             }
         );
+    };
 
-
-    }
+    redirectToAppointmentPropose = (specName, specId) => {
+        this.props.history.push(
+            {
+                pathname: `/propose/appointment/${specName}`,
+                state: {specialityId: specId}
+            }
+        );
+    };
 
     render() {
         return (
             <div>
                 {this.state.specialities.map(spec => <Speciality {...spec} key={spec.id}
-                                                                 redirectToDoctors={this.redirectToDoctors}/>)}
+                                                                 redirectToDoctors={this.redirectToDoctors}
+                                                                 redirectToAppointmentPropose={this.redirectToAppointmentPropose}
+                />)}
             </div>
         )
     }
@@ -46,8 +54,12 @@ class SpecialityContainer extends Component {
 
 class Speciality extends Component {
 
-    handleClick = () => {
+    handleClickDoc = () => {
         this.props.redirectToDoctors(this.props.name.toLowerCase(), this.props.id);
+    };
+
+    handleClickApp = () => {
+        this.props.redirectToAppointmentPropose(this.props.name.toLowerCase(), this.props.id);
     };
 
     render() {
@@ -57,9 +69,9 @@ class Speciality extends Component {
                     <h3>{this.props.name}</h3>
                     <p>Description</p>
                     <p>
-                        <button onClick={this.handleClick} type="button" className="btn btn-primary">Wybierz termin
+                        <button onClick={this.handleClickApp} type="button" className="btn btn-primary">Wybierz termin
                         </button>
-                        <button onClick={this.handleClick} type="button" className="btn">Znajdz lekarza</button>
+                        <button onClick={this.handleClickDoc} type="button" className="btn">Znajdz lekarza</button>
                     </p>
                 </Thumbnail>
             </Col>
