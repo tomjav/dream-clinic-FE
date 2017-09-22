@@ -3,19 +3,22 @@ import ModalComponent from "../../common/modal/ModalComponent";
 import {Button} from "react-bootstrap";
 import HTTP from "../../common/http";
 import LoginFormComponent from "./LoginForm";
+import AdminForms from "../../adminPanel/AdminForms";
 
 class LoginComponent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false
+            showModal: false,
+            showRegisterModal: false
         }
     }
 
     closeModal = () => {
         this.setState({
-            showModal: false
+            showModal: false,
+            showRegisterModal: false
         });
     };
 
@@ -25,27 +28,30 @@ class LoginComponent extends Component {
         });
     };
 
+    openRegisterModal = () => {
+        this.setState({
+            showRegisterModal: true
+        });
+    };
+
     doAction = () => {
         this.setState({
             action: 'OK'
         });
-
         this.props.onActionClick({hourFrom: this.props.from, hourTo: this.props.to});
-
-
-        // HTTP.post('/appointment', callback, {doctorId: 1, patientId: 5});
-        // HTTP.post(`doctor/${CONSTANT.ID}/availability/hours`, callback, {from: this.props.from, to: this.props.to});
-
     };
 
     resolveContent = () => {
-
         if (this.state.action === 'OK') return approval;
         if (this.state.action === 'ERROR') return error;
         return <LoginFormComponent onSubmit={this.onSubmit}/>;
-
     };
 
+    resolveRegisterContent = () => {
+        if (this.state.action === 'OK') return approval;
+        if (this.state.action === 'ERROR') return error;
+        return <AdminForms onSubmit={this.onRegisterSubmit}/>;
+    };
 
     storeTokenAndUserData = (token) => {
         localStorage.setItem('token', token.token);
@@ -66,6 +72,12 @@ class LoginComponent extends Component {
         HTTP.post("/auth", e => this.storeTokenAndUserData(e), dto);
     };
 
+    /*IMPORTANT*/
+    onRegisterSubmit = (dto) => {
+        HTTP.post("/register/patient", this.onAppointmentApprovalCallback, dto);
+        this.closeModal();
+    };
+
     footerModal = (<div>
         <Button bsStyle="primary" onClick={this.doAction}>Tak</Button>
         <Button onClick={this.closeModal}>Anuluj</Button>
@@ -74,14 +86,20 @@ class LoginComponent extends Component {
     render() {
         return (
             <ul className="nav navbar-nav navbar-right">
-                <li><a href="#"><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li onClick={this.openRegisterModal}><a><span className="glyphicon glyphicon-user"></span>Sign Up</a></li>
+                <ModalComponent showModal={this.state.showRegisterModal}
+                                headerModal='Rejestracja'
+                                bodyModal={this.resolveRegisterContent()}
+                                callbackClose={() => this.setState({showRegisterModal: false})}
+                />
+
+
                 <li onClick={this.openModal}><a><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
 
                 <ModalComponent showModal={this.state.showModal}
                                 headerModal={modalHeader}
                                 bodyModal={this.resolveContent()}
-                                footerModal={this.footerModal}
-                                callbackClose={() => this.setState({showModal:false})}
+                                callbackClose={() => this.setState({showModal: false})}
                 />
             </ul>
         )

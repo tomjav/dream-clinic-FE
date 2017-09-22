@@ -44,13 +44,6 @@ class LoginFormComponent extends Component {
                         <FormControl type="password" value={this.state.password} onChange={this.handleChangePassword} placeholder="Wpisz haslo"/>
                     </Col>
                 </FormGroup>
-
-                <FormGroup>
-                    <Col smOffset={2} sm={10}>
-                        <Checkbox>Zapamietaj mnie</Checkbox>
-                    </Col>
-                </FormGroup>
-
                 <FormGroup>
                     <Col smOffset={2} sm={10}>
                         <input type="submit" value="Zaloguj" />

@@ -1,3 +1,9 @@
 .topbar{
-    background-color: rgba(102, 245, 244, 0.73);
+    background-color: rgba(22, 130, 245, 0.73);
+}
+
+.ladnie{
+    font-family: 'Oleo Script Swash Caps', cursive;
+    color: azure;
+    font-size: 32px;
 }

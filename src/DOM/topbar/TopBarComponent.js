@@ -10,8 +10,8 @@ class TopBarComponent extends Component {
                 <div className="col-md-2 col-md-offset-3">
                     <current-user></current-user>
                 </div>
-                <h3>DreamClinic</h3>
-                <p>Nawet chorowac mozna przyjemnie!</p>
+                <h3 className="ladnie">DreamClinic</h3>
+                <p className="ladnie">Nawet chorowac mozna przyjemnie!</p>
             </div>
 
         );
