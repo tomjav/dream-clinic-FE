@@ -51,7 +51,7 @@ class App extends Component {
                             <Route path="/appointment" component={PatientAppointmentWrapper}/>
                             <Route path="/admin/panel" component={AdminPanelWrapper}/>
                             <Route path="/myday" component={MyDayWrapper}/>
-                            <Route path="/myday" component={CreateAdmin}/>
+                            <Route path="/createadmin" component={CreateAdmin}/>
                         </div>
                     </div>
                 </Router>
