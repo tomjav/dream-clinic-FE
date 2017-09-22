@@ -50,11 +50,11 @@ class OptionDoctor extends Component {
     getHourStatusAction = () => {
         switch (this.props.status) {
             case 'HOUR_OFF':
-                return (<button className="label label-info">Pracuj</button>);
+                return (<Button onClick={this.openModal} bsStyle="info">Pracuj</Button>);
             case 'FREE_TIME':
-                return (<button className="label label-success">Weź wolne</button>);
+                return (<Button onClick={this.openModal} bsStyle="success">Weź wolne</Button>);
             case 'APPOINTMENT':
-                return (<button className="label label-success">Odwolaj</button>);
+                return (<Button onClick={this.openModal} bsStyle="danger">Odwolaj</Button>);
             default:
                 return null;
         }
@@ -68,8 +68,7 @@ class OptionDoctor extends Component {
     render() {
         return (
             <td>
-                <button onClick={this.openModal}>{this.getHourStatusAction()}</button>
-                <input type="checkbox"/>
+                {this.getHourStatusAction()}
                 <ModalComponent showModal={this.state.showModal}
                                 headerModal={modalHeader}
                                 bodyModal={this.resolveContent()}
