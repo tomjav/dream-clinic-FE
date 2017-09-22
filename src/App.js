@@ -17,6 +17,7 @@ import PatientAppointmentWrapper from "./appointments/patientAppoitmentWrapper";
 import AdminPanelWrapper from "./adminPanel/AdminPanelWrapper";
 import MyDay from "./MyDay/MyDay";
 import MyDayWrapper from "./MyDay/MyDayWrapper";
+import CreateAdmin from "./adminPanel/CreateAdmin";
 
 class App extends Component {
 
@@ -50,6 +51,7 @@ class App extends Component {
                             <Route path="/appointment" component={PatientAppointmentWrapper}/>
                             <Route path="/admin/panel" component={AdminPanelWrapper}/>
                             <Route path="/myday" component={MyDayWrapper}/>
+                            <Route path="/myday" component={CreateAdmin}/>
                         </div>
                     </div>
                 </Router>
