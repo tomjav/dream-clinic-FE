@@ -1,5 +1,6 @@
 import React from 'react';
 import CaruselComponent from "../../common/carusel/CaruselComponent";
+import {Panel} from "react-bootstrap";
 
 const HomeComponent = (props) => {
 
@@ -11,6 +12,7 @@ const HomeComponent = (props) => {
             </div>
 
             <div className="container">
+                <Panel>
                 <div className="row">
                     <div className="col-md-4">
                         <h2><strong>O nas</strong></h2>
@@ -43,6 +45,7 @@ const HomeComponent = (props) => {
                         </p>
                     </div>
                 </div>
+                </Panel>
             </div>
         </div>
     );

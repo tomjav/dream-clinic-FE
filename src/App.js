@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
+import './DOM/footer/FooterStyle.css';
 import Availability from "./calendar/Availability";
 import HomeComponent from "./DOM/home/HomeComponent";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
@@ -16,13 +17,14 @@ import PatientAppointmentWrapper from "./appointments/patientAppoitmentWrapper";
 import AdminPanelWrapper from "./adminPanel/AdminPanelWrapper";
 import MyDay from "./MyDay/MyDay";
 import MyDayWrapper from "./MyDay/MyDayWrapper";
+import CreateAdmin from "./adminPanel/CreateAdmin";
 
 class App extends Component {
 
     render() {
 
         moment.updateLocale('en', {
-            months : CONSTANT.MONTH.splice(1)
+            months: CONSTANT.MONTH.splice(1)
         });
 
         Date.prototype.addMonths = function (value) {
@@ -49,9 +51,15 @@ class App extends Component {
                             <Route path="/appointment" component={PatientAppointmentWrapper}/>
                             <Route path="/admin/panel" component={AdminPanelWrapper}/>
                             <Route path="/myday" component={MyDayWrapper}/>
+                            <Route path="/createadmin" component={CreateAdmin}/>
                         </div>
                     </div>
                 </Router>
+
+                <div className="wrapper" id="sticky-wrap">
+                    <div className="content-area">
+                    </div>
+                </div>
                 <FooterComponent/>
             </div>
         );
