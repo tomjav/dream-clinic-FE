@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
+import './DOM/footer/FooterStyle.css';
 import Availability from "./calendar/Availability";
 import HomeComponent from "./DOM/home/HomeComponent";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
@@ -22,7 +23,7 @@ class App extends Component {
     render() {
 
         moment.updateLocale('en', {
-            months : CONSTANT.MONTH.splice(1)
+            months: CONSTANT.MONTH.splice(1)
         });
 
         Date.prototype.addMonths = function (value) {
@@ -52,6 +53,11 @@ class App extends Component {
                         </div>
                     </div>
                 </Router>
+
+                <div className="wrapper" id="sticky-wrap">
+                    <div className="content-area">
+                    </div>
+                </div>
                 <FooterComponent/>
             </div>
         );
