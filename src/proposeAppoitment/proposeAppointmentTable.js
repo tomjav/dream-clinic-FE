@@ -42,6 +42,10 @@ class ProposeAppointmentRow extends Component {
 
 
     render() {
+        const d = new Date(this.props.date);
+
+        let newDate = new Date(d + 1 * 24*60*60*1000);
+
         return (<tr onClick={this.handleClick}>
             <th>{this.props.doctorDto.name}</th>
             <th>{this.props.doctorDto.surname}</th>

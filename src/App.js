@@ -14,6 +14,8 @@ import CONSTANT from "./common/constants";
 import ApprovalComponent from "./DOM/approval/ApprovalComponent";
 import PatientAppointmentWrapper from "./appointments/patientAppoitmentWrapper";
 import AdminPanelWrapper from "./adminPanel/AdminPanelWrapper";
+import MyDay from "./MyDay/MyDay";
+import MyDayWrapper from "./MyDay/MyDayWrapper";
 
 class App extends Component {
 
@@ -46,6 +48,7 @@ class App extends Component {
                             <Route path="/approval" component={ApprovalComponent}/>
                             <Route path="/appointment" component={PatientAppointmentWrapper}/>
                             <Route path="/admin/panel" component={AdminPanelWrapper}/>
+                            <Route path="/myday" component={MyDayWrapper}/>
                         </div>
                     </div>
                 </Router>
