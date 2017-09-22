@@ -14,7 +14,6 @@ class DoctorPersonalInfo extends Component {
     }
 
     render() {
-        console.log(this.props.doctorInfo);
         return (
             <Panel>
                 <Col md={5}>

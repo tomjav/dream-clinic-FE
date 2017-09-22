@@ -55,9 +55,6 @@ class ProposeAppointmentWrapper extends Component {
         request.hourTo = this.state.propose.to;
         request.id = this.state.propose.availabilityId;
 
-        console.log("submit!");
-        console.log(request);
-
         HTTP.post('/appointment', this.onAppointmentApprovalCallback, request);
 
     };
@@ -70,7 +67,7 @@ class ProposeAppointmentWrapper extends Component {
                     header: 'Zarejestrowano wizyte!',
                     content: 'Twoja wizyta zostaja pomyslnie zarejestrowana',
                     buttonInfo: 'Przejdz do wizyt',
-                    callbackPath: '/appointments'
+                    callbackPath: '/appointment'
                 }
             }
         );
@@ -84,7 +81,6 @@ class ProposeAppointmentWrapper extends Component {
     // modalFooter = <Button onClick={this.createAppointment}>Umow wizyte</Button>
 
     render() {
-        console.log(this.state.clickedDays);
         return (
             <Row>
                 <Col md={6}><LeftSide specialityId={this.props.location.state.specialityId}

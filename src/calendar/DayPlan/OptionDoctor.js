@@ -51,8 +51,8 @@ class OptionDoctor extends Component {
         switch (this.props.status) {
             case 'HOUR_OFF':
                 return (<button className="label label-info">Pracuj</button>);
-            case 'FREE':
-                return (<button className="label label-success">Wez wolne</button>);
+            case 'FREE_TIME':
+                return (<button className="label label-success">Weź wolne</button>);
             case 'APPOINTMENT':
                 return (<button className="label label-success">Odwolaj</button>);
             default:

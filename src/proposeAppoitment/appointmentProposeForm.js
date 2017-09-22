@@ -25,8 +25,6 @@ class AppointmentProposeFrom extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-
-        console.log("asasas")
         let dto = {
             reason: this.state.reason,
             comment: this.state.comment,

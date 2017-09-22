@@ -13,6 +13,7 @@ import * as moment from "moment";
 import CONSTANT from "./common/constants";
 import ApprovalComponent from "./DOM/approval/ApprovalComponent";
 import PatientAppointmentWrapper from "./appointments/patientAppoitmentWrapper";
+import AdminPanelWrapper from "./adminPanel/AdminPanelWrapper";
 
 class App extends Component {
 
@@ -30,7 +31,6 @@ class App extends Component {
             return this;
         };
 
-
         return (
             <div>
                 <TopBarComponent/>
@@ -45,6 +45,7 @@ class App extends Component {
                             <Route path="/propose/appointment" component={ProposeAppointmentWrapper}/>
                             <Route path="/approval" component={ApprovalComponent}/>
                             <Route path="/appointment" component={PatientAppointmentWrapper}/>
+                            <Route path="/admin/panel" component={AdminPanelWrapper}/>
                         </div>
                     </div>
                 </Router>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CONSTANT from "../common/constants";
 import './style/monthslider.css';
+import {Pager} from "react-bootstrap";
 
 class Monthslider extends Component {
 
@@ -12,10 +13,12 @@ class Monthslider extends Component {
 
     render() {
         return (
-            <div className="monthslider">
-                <span onClick={this.handleClickLeft} className='glyphicon glyphicon-circle-arrow-left'/>
-                <span>{CONSTANT.MONTH[this.props.month]}</span>
-                <span onClick={this.handleClickRight} className='glyphicon glyphicon-circle-arrow-right'/>
+            <div>
+                <Pager>
+                    <Pager.Item onClick={this.handleClickLeft} previous href="#">&larr; Poprzedni miesiąc</Pager.Item>
+                         <span>{CONSTANT.MONTH[3]}</span>
+                    <Pager.Item onClick={this.handleClickRight} next href="#">Kolejny miesiąc &rarr;</Pager.Item>
+                </Pager>
             </div>
         );
     }

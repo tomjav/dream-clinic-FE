@@ -4,6 +4,7 @@ import Monthslider from "./Monthslider";
 import HTTP from "../common/http";
 import Dayplan from "./DayPlan/Dayplan";
 import ArrayUtil from "../common/ArrayUtil";
+import {Col, Row} from "react-bootstrap";
 
 
 class Availability extends Component {
@@ -47,7 +48,8 @@ class Availability extends Component {
     };
 
     getDays(monthId) {
-        HTTP.get(`/doctor/1/availability/workingdays`,
+        let doctorId = Number(localStorage.getItem('id'));
+        HTTP.get(`/doctor/${doctorId}/availability/workingdays`,
             resp => this.changeDays(resp), {month: monthId});
     }
 
@@ -67,18 +69,18 @@ class Availability extends Component {
     render() {
         console.log(this.state.clickedDays);
         return (
-            <div className="row">
-                <div className="col-sm-6">
+            <Row>
+                <Col md={6}>
                     <Monthslider month={this.state.monthId} changeMonth={this.changeMonth}/>
                     <Calendar selectDayFunction={this.clickedDay} days={this.state.days} month={this.state.monthId}/>
-                </div>
-                <div className="col-sm-6">
+                </Col>
+                <Col md={6}>
                     {this.state.clickedDays && this.state.clickedDays.length > 0 &&
                     <Dayplan day={this.state.clickedDays[this.state.clickedDays.length - 1]} year={this.state.year}
                              month={this.state.monthId}/>
                     }
-                </div>
-            </div>
+                </Col>
+            </Row>
         );
     }
 }
