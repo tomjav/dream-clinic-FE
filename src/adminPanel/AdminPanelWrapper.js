@@ -15,6 +15,24 @@ class AdminPanelWrapper extends Component {
         }
     }
 
+    onSubmit = (dto) => {
+        HTTP.post("/register/doctor", this.onAppointmentApprovalCallback, dto);
+    };
+
+    onAppointmentApprovalCallback = () => {
+        this.props.history.push(
+            {
+                pathname: `/approval`,
+                state: {
+                    header: 'Zarejestrowano uzytkownika!',
+                    content: 'Konto uzytkownika jest juz aktywne',
+                    buttonInfo: 'Przejdz do uzytkownikow',
+                    callbackPath: '/appointment'
+                }
+            }
+        );
+    };
+
     componentDidMount(){
     }
 
@@ -25,7 +43,7 @@ class AdminPanelWrapper extends Component {
                     <AdminOptions/>
                 </Col>
                 <Col md={6}>
-                    <AdminForms/>
+                    <AdminForms isDoctor={true} onSubmit={this.onSubmit}/>
                 </Col>
             </Row>
         );

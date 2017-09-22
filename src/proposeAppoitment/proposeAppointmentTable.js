@@ -52,5 +52,4 @@ class ProposeAppointmentRow extends Component {
     }
 }
 
-
 export default ProposeAppointmentTable;

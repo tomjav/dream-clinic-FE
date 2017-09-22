@@ -18,17 +18,6 @@ class MenuComponent extends Component {
     handleLoggenIn = (status) => {
 
         let iUsername = localStorage.getItem('username');
-
-        HTTP.get("/menu", e => {
-            this.setState({
-                logged: status,
-                menu: e
-            });
-        }, {username: iUsername});
-    };
-
-    handleLoggenOut = (status) => {
-        let iUsername = localStorage.getItem('username');
         this.setState({logged: status});
 
         if (status) {
@@ -38,9 +27,11 @@ class MenuComponent extends Component {
                 });
             }, {username: iUsername});
         } else {
-            this.props.redirectToHome();
+            window.location.replace("http://localhost:3000/");
         }
     };
+
+
 
     componentDidMount() {
         let iUsername = localStorage.getItem('username');
@@ -70,7 +61,7 @@ class MenuComponent extends Component {
                     <LoginComponent handleLoggenIn={this.handleLoggenIn}/>
                     }
                     {localStorage.getItem('token') !== null &&
-                    <LoggedAsSomeone handleLoggenIn={this.handleLoggenOut}/>
+                    <LoggedAsSomeone handleLoggenIn={this.handleLoggenIn}/>
                     }
                 </div>
             </nav>

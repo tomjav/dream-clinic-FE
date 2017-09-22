@@ -15,12 +15,14 @@ class AdminForms extends Component {
             password: "",
             name: "",
             surname: "",
-            email: ""
+            email: "",
+            specName: "",
+            options: []
         }
     }
 
-    componentDidMount() {
-        // this.getAppointmentData(this.state.active);
+    componentDidMount(){
+        HTTP.get('/specialities', e => this.setState({options: e}));
     }
 
     handleusername = (n) => {
@@ -37,17 +39,6 @@ class AdminForms extends Component {
     };
     handleemail = (n) => {
         this.setState({email: n.target.value})
-    };
-
-
-    handleRegister = () => {
-        let dto = {
-            username: this.state.username,
-            password: this.state.password,
-            name: this.state.name,
-            surname: this.state.surname
-        };
-        HTTP.post('/register/doctor', this.onAppointmentApprovalCallback, dto);
     };
 
     onAppointmentApprovalCallback = () => {
@@ -75,9 +66,17 @@ class AdminForms extends Component {
             password: this.state.password,
             name: this.state.name,
             surname: this.state.surname,
-            email: this.state.email
+            email: this.state.email,
+            specName : this.state.specName === undefined  ? this.state.options[0] : this.state.specName
         };
         this.props.onSubmit(dto);
+    };
+
+    handleSpec = (e) => {
+
+        this.setState({
+            specName: e.target.value
+        });
     };
 
     render() {
@@ -110,7 +109,6 @@ class AdminForms extends Component {
                             placeholder="Imie"
                             onChange={this.handlename}
                         />
-
                         <ControlLabel>Nazwisko</ControlLabel>
                         <FormControl
                             type="password"
@@ -125,11 +123,27 @@ class AdminForms extends Component {
                                 <FormControl type="text" value={this.state.email} onChange={this.handleemail}/>
                             </InputGroup>
                         </FormGroup>
+                        {this.props.isDoctor && <SelectComponent options={this.state.options} handleSpec={this.handleSpec}/>}
                     </form>
                 </Panel>
                 <Button onClick={this.handleSubmit}>Zatwierdź</Button>
             </div>
         );
+    }
+}
+
+class SelectComponent extends Component{
+
+    render() {
+        return (
+            <FormGroup controlId="formControlsSelect">
+                <ControlLabel>Specializacja</ControlLabel>
+                <FormControl onChange={this.props.handleSpec} componentClass="select" placeholder="select">
+                    {this.props.options.map(e => <option value={e.name} key={e.id}>{e.name}</option>)}
+                </FormControl>
+            </FormGroup>
+        );
+
     }
 }
 
