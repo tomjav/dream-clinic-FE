@@ -9,7 +9,7 @@ class FooterComponent extends Component {
                     <div class="content-area">
                     </div>
                 </div>
-                <footer>
+                 <footer>
                     <div className="navbar navbar-default">
                         <div className="container">
                             <p className="navbar-text pull-left">© 2017 - DreamClinic By Tomasz Grzybowski.
